@@ -1,0 +1,63 @@
+<div class="parent-form-group">
+    <div class="form-group">
+        <h1>Formulario de Registro</h1>
+        <hr />
+        <form #myForm="ngForm">
+            <div class="input-group">
+                <label>ID</label>
+                <input required type="text" name="id" [disabled]="isUpdate"
+                    [ngClass]="{'message-error': (id.invalid && (id.dirty || id.touched)) || (!isUpdate && showErrorId)}" [(ngModel)]="product.id"
+                    #id="ngModel" minlength="3" maxlength="10" (change)="showErrorId=false"/>
+                <a *ngIf="(id.dirty || id.touched) && (id.errors?.['required'] || id.errors?.['minlength'])"
+                    class="message-error">ID no valido!</a>
+                <a *ngIf="!isUpdate && showErrorId"
+                    class="message-error">ID no valido!</a>
+            </div>
+            <div class="input-group">
+                <label>Nombre</label>
+                <input required type="text" name="name"
+                    [ngClass]="{'message-error': name.invalid && (name.dirty || name.touched)}"
+                    [(ngModel)]="product.name" #name="ngModel" minlength="5" maxlength="100" />
+                <a *ngIf="(name.dirty || name.touched) && (name.errors?.['required'] || name.errors?.['minlength'])"
+                    class="message-error">Este campo es
+                    requerido</a>
+            </div>
+            <div class="input-group">
+                <label>Descripción</label>
+                <input required type="text" name="description"
+                    [ngClass]="{'message-error': description.invalid && (description.dirty || description.touched)}"
+                    [(ngModel)]="product.description" #description="ngModel" minlength="10" maxlength="200" />
+                <a *ngIf="(description.dirty || description.touched) && (description.errors?.['required'] || description.errors?.['minlength'])"
+                    class="message-error">Este campo es requerido</a>
+            </div>
+            <div class="input-group">
+                <label>Logo</label>
+                <input required type="text" name="logo"
+                    [ngClass]="{'message-error': logo.invalid && (logo.dirty || logo.touched)}"
+                    [(ngModel)]="product.logo" #logo="ngModel" />
+                <a *ngIf="(logo.dirty || logo.touched) && logo.errors?.['required']" class="message-error">Este campo es
+                    requerido</a>
+            </div>
+            <div class="input-group">
+                <label>Fecha de Liberación</label>
+                <input required type="date" name="date_release" [min]="minDate" (change)="onChangeDateRelease($event)"
+                    [ngClass]="{'message-error': date_release.invalid && (date_release.dirty || date_release.touched)}"
+                    [(ngModel)]="product.date_release" #date_release="ngModel" />
+                <a *ngIf="(date_release.dirty || date_release.touched) && date_release.errors?.['required']"
+                    class="message-error">Este campo es requerido</a>
+            </div>
+            <div class="input-group">
+                <label>Fecha de Revisión</label>
+                <input required type="date" name="date_revision" [min]="minReleaseDate"
+                    [ngClass]="{'message-error': date_revision.invalid && (date_revision.dirty || date_revision.touched)}"
+                    [(ngModel)]="product.date_revision" #date_revision="ngModel" />
+                <a *ngIf="(date_revision.dirty || date_revision.touched) && date_revision.errors?.['required']"
+                    class="message-error">Este campo es requerido</a>
+            </div>
+        </form>
+        <div class="button-group">
+            <button (click)="resetForm(myForm)" class="secondary">Reiniciar</button>
+            <button (click)="createNewProduct(myForm)" class="primary">Enviar</button>
+        </div>
+    </div>
+</div>
